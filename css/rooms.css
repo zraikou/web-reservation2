@@ -1,0 +1,143 @@
+/* Modal Styles */
+      .modal {
+          display: none;
+          position: fixed;
+          z-index: 1000;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          background-color: rgba(0, 0, 0, 0.5);
+      }
+     
+      .modal-content {
+          background-color: #fff;
+          margin: 5% auto;
+          padding: 20px;
+          border-radius: 8px;
+          width: 80%;
+          max-width: 600px;
+          box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+      }
+     
+      .close-modal {
+          color: #aaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+          cursor: pointer;
+      }
+     
+      .close-modal:hover {
+          color: #000;
+      }
+     
+      .form-group {
+          margin-bottom: 15px;
+      }
+     
+      .form-group label {
+          display: block;
+          margin-bottom: 5px;
+          font-weight: bold;
+      }
+     
+      .form-group input, .form-group select, .form-group textarea {
+          width: 100%;
+          padding: 8px;
+          border: 1px solid #ddd;
+          border-radius: 4px;
+      }
+     
+      .form-group textarea {
+          height: 100px;
+      }
+     
+      .form-actions {
+          text-align: right;
+          margin-top: 20px;
+      }
+     
+      .form-actions button {
+          margin-left: 10px;
+      }
+     
+      .view-details p {
+          margin: 10px 0;
+      }
+     
+      /* Notification Styles */
+      .notification {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          padding: 15px 20px;
+          border-radius: 4px;
+          color: white;
+          font-weight: bold;
+          z-index: 1100;
+          opacity: 0;
+          transform: translateY(-20px);
+          transition: opacity 0.3s, transform 0.3s;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+     
+      .notification.show {
+          opacity: 1;
+          transform: translateY(0);
+      }
+     
+      .notification.success {
+          background-color: #28a745;
+      }
+     
+      .notification.error {
+          background-color: #dc3545;
+      }
+     
+      /* Status Colors */
+      .status {
+          display: inline-block;
+          padding: 3px 8px;
+          border-radius: 12px;
+          font-size: 12px;
+          font-weight: bold;
+          background-color: #e9ecef;
+      }
+     
+      .status.checked-in {
+          background-color: #17a2b8;
+          color: white;
+      }
+     
+      .status.reserved {
+          background-color: #ffc107;
+          color: black;
+      }
+     
+      .status.cancelled {
+          background-color: #dc3545;
+          color: white;
+      }
+     
+      /* Loading Spinner */
+      .loading-spinner {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          padding: 20px 0;
+      }
+     
+      .spinner {
+          width: 40px;
+          height: 40px;
+          border: 4px solid #f3f3f3;
+          border-top: 4px solid #3498db;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+      }
+     
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooms Management - White Lotus Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/rooms.css">
+</head>
+<body>
+  <div class="admin-wrap">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+          <div class="admin-logo">
+              <i class="fas fa-lotus"></i>
+              <span>White Lotus Admin</span>
+          </div>
+          <ul class="admin-menu">
+              <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+              <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+              <li><a href="rooms.html" class="active"><i class="fas fa-door-open"></i> Rooms</a></li>
+              <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+          </ul>
+      </aside>
+
+
+      <!-- Main Content -->
+      <main class="admin-content">
+          <div class="admin-header">
+              <div class="admin-title">
+                  <span class="toggle-sidebar"><i class="fas fa-bars"></i></span>
+                  <h1>Rooms Management</h1>
+              </div>
+          </div>
+
+
+          <!-- Room Types Section -->
+          <div class="admin-table-container">
+              <div class="admin-table-header">
+                  <h3>Room Types</h3>
+                  <button class="btn" onclick="openRoomTypeModal()">+ Add Room Type</button>
+              </div>
+              <table class="admin-table" id="room-types-table">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Type Name</th>
+                          <th>Description</th>
+                          <th>Price/Night</th>
+                          <th>Capacity</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Room types will be loaded dynamically -->
+                      <tr>
+                          <td colspan="6">
+                              <div class="loading-spinner">
+                                  <div class="spinner"></div>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+
+
+          <!-- Rooms Section -->
+          <div class="admin-table-container" style="margin-top: 30px;">
+              <div class="admin-table-header">
+                  <h3>Individual Rooms</h3>
+                  <button class="btn" onclick="openRoomModal()">+ Add Room</button>
+              </div>
+              <table id="rooms-table" class="admin-table">
+                  <thead>
+                      <tr>
+                          <th>ID</th>
+                          <th>Room Number</th>
+                          <th>Type</th>
+                          <th>Floor</th>
+                          <th>Status</th>
+                          <th>Notes</th>
+                          <th>Price / Night</th>
+                          <th>Capacity</th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <!-- Rooms will be loaded dynamically -->
+                      <tr>
+                          <td colspan="9">
+                              <div class="loading-spinner">
+                                  <div class="spinner"></div>
+                              </div>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </main>
+  </div>
+
+
+  <!-- Room Type Modal -->
+  <div id="room-type-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-modal" onclick="closeModal('room-type-modal')">&times;</span>
+          <h2 id="room-type-modal-title">Add Room Type</h2>
+          <form id="room-type-form" onsubmit="saveRoomType(event)">
+              <div class="form-group">
+                  <label for="room-type-name">Type Name*</label>
+                  <input type="text" id="room-type-name" name="name" required>
+              </div>
+              <div class="form-group">
+                  <label for="room-type-description">Description</label>
+                  <textarea id="room-type-description" name="description"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="room-type-price">Price per Night ($)*</label>
+                  <input type="number" id="room-type-price" name="price_per_night" min="0" step="0.01" required>
+              </div>
+              <div class="form-group">
+                  <label for="room-type-capacity">Capacity*</label>
+                  <input type="number" id="room-type-capacity" name="capacity" min="1" required>
+              </div>
+              <div class="form-actions">
+                  <button type="button" class="btn btn-secondary" onclick="closeModal('room-type-modal')">Cancel</button>
+                  <button type="submit" class="btn">Save</button>
+              </div>
+          </form>
+      </div>
+  </div>
+
+
+  <!-- Room Modal -->
+  <div id="room-modal" class="modal">
+      <div class="modal-content">
+          <span class="close-modal" onclick="closeModal('room-modal')">&times;</span>
+          <h2 id="room-modal-title">Add Room</h2>
+          <form id="room-form" onsubmit="saveRoom(event)">
+              <div class="form-group">
+                  <label for="room-number">Room Number*</label>
+                  <input type="text" id="room-number" name="room_number" required>
+              </div>
+              <div class="form-group">
+                  <label for="room-type-id">Room Type*</label>
+                  <select id="room-type-id" name="room_type_id" required onchange="handleRoomTypeSelection()">
+                      <option value="">Select Room Type</option>
+                      <!-- Room types will be loaded dynamically -->
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="room-floor">Floor*</label>
+                  <input type="number" id="room-floor" name="floor" min="1" required>
+              </div>
+              <div class="form-group">
+                  <label for="room-status">Status*</label>
+                  <select id="room-status" name="status" required>
+                      <option value="available">Available</option>
+                      <option value="reserved">Reserved</option>
+                      <option value="occupied">Occupied</option>
+                      <option value="maintenance">Maintenance</option>
+                  </select>
+              </div>
+              <div class="form-group">
+                  <label for="room-notes">Notes</label>
+                  <textarea id="room-notes" name="notes"></textarea>
+              </div>
+              <div class="form-group">
+                  <label for="room-price">Price per Night ($)*</label>
+                  <input type="number" id="room-price" name="price_per_night" min="0" step="0.01" required>
+              </div>
+              <div class="form-group">
+                  <label for="room-capacity">Capacity*</label>
+                  <input type="number" id="room-capacity" name="capacity" min="1" required>
+              </div>
+              <div class="form-actions">
+                  <button type="button" class="btn btn-secondary" onclick="closeModal('room-modal')">Cancel</button>
+                  <button type="submit" class="btn">Save</button>
+              </div>
+          </form>
+      </div>
+  </div>
+
+
+  <!-- JavaScript -->
+  <script src="js/rooms.js"></script>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation Confirmation - White Lotus Hotel & Resort</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .confirmation-container {
+            max-width: 800px;
+            margin: 80px auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .confirmation-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .confirmation-header i {
+            font-size: 4rem;
+            color: #4CAF50;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .confirmation-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .confirmation-details {
+            margin-top: 40px;
+            border-top: 1px solid #eee;
+            padding-top: 30px;
+        }
+
+        .detail-row {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .detail-label {
+            flex: 0 0 200px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .detail-value {
+            flex: 1;
+        }
+
+        .confirmation-actions {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .confirmation-actions .btn {
+            margin: 0 10px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-outline:hover {
+            background: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        .confirmation-note {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .confirmation-note h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .confirmation-container {
+                padding: 20px;
+                margin: 40px 20px;
+            }
+
+            .detail-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .detail-label {
+                margin-bottom: 5px;
+            }
+
+            .confirmation-actions .btn {
+                display: block;
+                margin: 10px auto;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-lotus"></i> White <span>Lotus</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="index.html#rooms">Rooms</a></li>
+                    <li><a href="index.html#booking">Booking</a></li>
+                    <li class="auth-nav">
+                        <!-- This will be populated by JavaScript -->
+                    </li>
+                </ul>
+            </nav>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Confirmation Section -->
+    <div class="container">
+        <div class="confirmation-container">
+            <div class="confirmation-header">
+                <i class="fas fa-check-circle"></i>
+                <h1>Reservation Confirmed!</h1>
+                <p>Thank you for choosing White Lotus Hotel & Resort. Your reservation has been successfully received.</p>
+            </div>
+
+            <div class="confirmation-details" id="reservation-details">
+                <!-- This will be populated by JavaScript -->
+                <div class="loading-message">
+                    <p>Loading reservation details...</p>
+                </div>
+            </div>
+
+            <div class="confirmation-note">
+                <h3>Important Information</h3>
+                <p>A confirmation email has been sent to your registered email address with all the details of your reservation. Our staff will review your booking and you'll receive a final confirmation within 24 hours.</p>
+                <p>Check-in time begins at 3:00 PM and check-out time is by 11:00 AM.</p>
+            </div>
+
+            <div class="confirmation-actions">
+                <a href="my_bookings.html" class="btn">View My Bookings</a>
+                <a href="index.html" class="btn btn-outline">Return to Home</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-column">
+                    <div class="logo">
+                        <i class="fas fa-lotus"></i> White <span>Lotus</span>
+                    </div>
+                    <p>Experience luxury like never before at White Lotus Hotel. Located in the heart of paradise with breathtaking views and world-class amenities.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="index.html#rooms">Rooms & Suites</a></li>
+                        <li><a href="index.html#booking">Reservations</a></li>
+                        <li><a href="about.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Ocean Drive, Paradise Island</li>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-8900</li>
+                        <li><i class="fas fa-envelope"></i> info@whitelotus.com</li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-pinterest"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 White Lotus Hotel & Resort. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/script.js"></script>
+    <script>
+        // Check authentication status and update nav
+        function checkAuthStatus() {
+            fetch('php/check_auth.php')
+                .then(response => response.json())
+                .then(data => {
+                    const authNav = document.querySelector('.auth-nav');
+                    
+                    if (data.isLoggedIn) {
+                        // Update nav menu
+                        authNav.innerHTML = `
+                            <div class="user-menu">
+                                <span>Welcome, ${data.userData.first_name}</span>
+                                <div class="user-dropdown">
+                                    <a href="profile.html">My Profile</a>
+                                    <a href="my-bookings.html">My Bookings</a>
+                                    <a href="#" onclick="logout(event)">Logout</a>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        // Show login prompt for non-authenticated users
+                        authNav.innerHTML = `
+                            <div class="auth-buttons">
+                                <a href="login.html">Login</a>
+                                <a href="register.html">Register</a>
+                            </div>
+                        `;
+                        // Redirect to login if not logged in
+                        window.location.href = 'login.html';
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // Logout function
+        function logout(e) {
+            e.preventDefault();
+            fetch('php/auth.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: 'action=logout'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = 'index.html';
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+
+        // Load reservation details
+function loadReservationDetails() {
+    const detailsContainer = document.getElementById('reservation-details');
+    
+    fetch('php/get_latest_reservation.php')
+        .then(response => response.json())
+        .then(data => {
+            if (data.success && data.reservation) {
+                const reservation = data.reservation;
+                const roomInfo = data.room_info;
+                const nights = data.nights;
+                const pricePerNight = data.price_per_night;
+                
+                // Format dates
+                const checkInDate = new Date(reservation.check_in);
+                const checkOutDate = new Date(reservation.check_out);
+                const formattedCheckIn = checkInDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                const formattedCheckOut = checkOutDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+                
+                detailsContainer.innerHTML = `
+                    <div class="detail-row">
+                        <div class="detail-label">Reservation ID:</div>
+                        <div class="detail-value">${reservation.reservation_id}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Room Type:</div>
+                        <div class="detail-value">${roomInfo.display_name}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Room Number:</div>
+                        <div class="detail-value">${roomInfo.room_number} (Floor ${roomInfo.floor})</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Check-in Date:</div>
+                        <div class="detail-value">${formattedCheckIn}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Check-out Date:</div>
+                        <div class="detail-value">${formattedCheckOut}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Duration:</div>
+                        <div class="detail-value">${nights} night${nights > 1 ? 's' : ''}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Price Per Night:</div>
+                        <div class="detail-value">$${parseFloat(pricePerNight).toFixed(2)}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Total Amount:</div>
+                        <div class="detail-value">$${parseFloat(reservation.total_price).toFixed(2)}</div>
+                    </div>
+                    <div class="detail-row">
+                        <div class="detail-label">Reservation Status:</div>
+                        <div class="detail-value">
+                            <span class="status-badge status-${reservation.status.toLowerCase()}">
+                                ${reservation.status.charAt(0).toUpperCase() + reservation.status.slice(1)}
+                            </span>
+                        </div>
+                    </div>
+                `;
+                
+                // Add special requests if any
+                if (reservation.special_requests) {
+                    detailsContainer.innerHTML += `
+                        <div class="detail-row">
+                            <div class="detail-label">Special Requests:</div>
+                            <div class="detail-value">${reservation.special_requests}</div>
+                        </div>
+                    `;
+                }
+            } else {
+                detailsContainer.innerHTML = `
+                    <div class="error-message">
+                        <p>Could not load reservation details. Please check your bookings page.</p>
+                    </div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            detailsContainer.innerHTML = `
+                <div class="error-message">
+                    <p>An error occurred while loading your reservation details. Please try again later.</p>
+                </div>
+            `;
+        });
+}
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthStatus();
+            loadReservationDetails();
+        });
+    </script>
+</body>
+</html>

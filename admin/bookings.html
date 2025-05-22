@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings - White Lotus Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/admin_styles.css">
+</head>
+<body>
+    <div class="admin-wrap">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <i class="fas fa-lotus"></i>
+                <span>White Lotus Admin</span>
+            </div>
+            <ul class="admin-menu">
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="bookings.html" class="active"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+                <li><a href="rooms.html"><i class="fas fa-door-open"></i> Rooms</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <span class="toggle-sidebar"><i class="fas fa-bars"></i></span>
+                    <h1>Bookings</h1>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="admin-table-container" style="margin-bottom: 20px; padding: 15px;">
+                <div style="display: grid; gap: 15px;">
+                    <div class="form-group">
+                        <label for="date-from">Date Range</label>
+                        <div style="display: flex; gap: 5px;">
+                            <input type="date" id="date-from" class="form-control">
+                            <input type="date" id="date-to" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="status-filter">Status</label>
+                        <select id="status-filter" class="form-control">
+                            <option value="">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Reserved</option>
+                            <option value="checked_in">Checked In</option>
+                            <option value="checked_out">Checked Out</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="room-type-filter">Room Type</label>
+                        <select id="room-type-filter" class="form-control">
+                            <option value="">All Room Types</option>
+                            <!-- Room types will be loaded dynamically -->
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="search">Search</label>
+                        <input type="text" id="search" placeholder="Name, Email..." class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="apply-filters">&nbsp;</label>
+                        <button id="apply-filters" class="btn">Apply Filters</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Export/Import Controls -->
+            <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                <button id="export-xml" class="btn">Export XML</button>
+                <input type="file" id="import-xml-input" accept=".xml" style="display: none;">
+                <button id="import-xml" class="btn">Import XML</button>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="admin-table-container">
+                <div class="admin-table-header">
+                    <h3>All Bookings</h3>
+                </div>
+                <table class="admin-table" id="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Guest</th>
+                            <th>Contact</th>
+                            <th>Room</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Guests</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Booking entries will be loaded dynamically -->
+                        <tr>
+                            <td colspan="9" class="text-center">Loading bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <!-- Pagination -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px; padding: 0 10px;">
+                    <div id="entries-info">Showing 0 entries</div>
+                    <div style="display: flex; gap: 5px;" id="pagination">
+                        <!-- Pagination will be added dynamically -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Action Confirmation Modal -->
+    <div id="confirmation-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1000;">
+        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 5px; width: 400px; max-width: 90%;">
+            <h3 id="modal-title">Confirm Action</h3>
+            <p id="modal-message">Are you sure you want to proceed with this action?</p>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                <button id="modal-cancel" class="btn" style="background-color: #ccc;">Cancel</button>
+                <button id="modal-confirm" class="btn">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/bookings.js"></script>
+    <script>
+        // Load room types when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch room types for dropdown
+            fetch('api/get_room_types.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    if (data.status === 'success') {
+                        const roomTypeSelect = document.getElementById('room-type-filter');
+                        
+                        // Add room types to dropdown
+                        data.room_types.forEach(roomType => {
+                            const option = document.createElement('option');
+                            option.value = roomType.id;
+                            option.textContent = roomType.name;
+                            roomTypeSelect.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching room types:', error);
+                });
+
+            // Export XML
+            document.getElementById('export-xml').addEventListener('click', function() {
+                window.location.href = '../api/export_bookings_xml.php';
+            });
+
+            // Import XML
+            document.getElementById('import-xml').addEventListener('click', function() {
+                document.getElementById('import-xml-input').click();
+            });
+            document.getElementById('import-xml-input').addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const formData = new FormData();
+                formData.append('xml_file', file);
+                fetch('../api/import_bookings_xml.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(text => {
+                    let data;
+                    try {
+                        data = JSON.parse(text);
+                    } catch (e) {
+                        alert('Server error or invalid response: ' + text);
+                        return;
+                    }
+                    if (data && data.message) {
+                        alert(data.message);
+                    } else if (data && data.success) {
+                        alert('Import successful!');
+                    } else {
+                        alert('Import failed.');
+                    }
+                    if (data && data.success) {
+                        location.reload();
+                    }
+                })
+                .catch(() => {
+                    alert('Import failed.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

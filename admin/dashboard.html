@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - White Lotus Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="admin-wrap">
+        <!-- Sidebar -->
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <i class="fas fa-lotus"></i>
+                <span>White Lotus Admin</span>
+            </div>
+            <ul class="admin-menu">
+                <li><a href="dashboard.html" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="bookings.html"><i class="fas fa-calendar-check"></i> Bookings</a></li>
+                <li><a href="rooms.html"><i class="fas fa-door-open"></i> Rooms</a></li>
+                <li><a href="../index.html"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+            </ul>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="admin-content">
+            <div class="admin-header">
+                <div class="admin-title">
+                    <span class="toggle-sidebar"><i class="fas fa-bars"></i></span>
+                    <h1>Dashboard</h1>
+                </div>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="admin-cards">
+                <div class="admin-card">
+                    <div class="card-icon">
+                        <i class="fas fa-bed"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Available Rooms</h3>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+                <div class="admin-card">
+                    <div class="card-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="card-content">
+                        <h3>Today's Check-ins</h3>
+                        <p>Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings Table -->
+            <div class="admin-table-container">
+                <div class="admin-table-header">
+                    <h3>Recent Bookings</h3>
+                    <a href="bookings.html" class="btn btn-sm">View All</a>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Guest</th>
+                            <th>Room</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td colspan="7">Loading recent bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/script.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - White Lotus Hotel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Override logo styles specifically for admin login */
+        .admin-login .logo {
+            color: #D4AF37; /* Gold color */
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .admin-login .logo span {
+            color: #D4AF37; /* Gold color */
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-login">
+        <div class="login-form">
+            <div class="logo">
+                <i class="fas fa-lotus"></i> White <span>Lotus</span>
+            </div>
+            <h2>Admin Login</h2>
+            <form id="login-form" action="../php/auth.php" method="POST">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Login</button>
+            </form>
+            <p style="text-align: center; margin-top: 20px; font-size: 14px;">
+                <a href="../index.html" style="color: var(--primary-color);">Return to Homepage</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="../js/script.js"></script>
+</body>
+</html>
